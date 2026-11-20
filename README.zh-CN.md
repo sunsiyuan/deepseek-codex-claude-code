@@ -312,6 +312,7 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 ## 相关
 
 - [seedance-2.5-api](https://github.com/sunsiyuan/seedance-2.5-api)：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
 
 ## 链接
 

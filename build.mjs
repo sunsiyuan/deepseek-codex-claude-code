@@ -338,6 +338,7 @@ The message ends with \`(request id: …)\`. Send that id to support@haryai.com 
 ## Related
 
 - [seedance-2.5-api](${SIBLING}): Seedance 2.5 video through the same HaryAI key and balance.
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill): make Seedance 2.5 videos from Claude Code or Codex.
 
 ## Links
 
@@ -555,6 +556,7 @@ ${errTable}
 ## 相关
 
 - [seedance-2.5-api](${SIBLING})：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
 
 ## 链接
 

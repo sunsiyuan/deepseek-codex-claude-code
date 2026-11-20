@@ -312,6 +312,7 @@ The message ends with `(request id: …)`. Send that id to support@haryai.com wh
 ## Related
 
 - [seedance-2.5-api](https://github.com/sunsiyuan/seedance-2.5-api): Seedance 2.5 video through the same HaryAI key and balance.
+- [seedance-skill](https://github.com/sunsiyuan/seedance-skill): make Seedance 2.5 videos from Claude Code or Codex.
 
 ## Links
 

@@ -89,6 +89,7 @@ Codex：
 
 ````text
 请帮我把这台电脑上的 Codex 配置成使用 HaryAI。
+完整的配置说明在 https://haryai.com/zh/help/setup，有拿不准的地方先读这一页。
 
 1. 先备份 ~/.codex/config.toml（复制成 ~/.codex/config.toml.bak）。如果这个文件不存在，就新建一个。
 2. 加入下面这些设置。已经有同名设置的，只改它的值；其他设置都不要动。
@@ -114,6 +115,7 @@ Claude Code：
 
 ````text
 请帮我把这台电脑上的 Claude Code 配置成使用 HaryAI。
+完整的配置说明在 https://haryai.com/zh/help/setup，有拿不准的地方先读这一页。
 
 1. 先备份 ~/.claude/settings.json（复制成 ~/.claude/settings.json.bak）。如果这个文件不存在，就新建一个，内容只写 {}。
 2. 把下面这些条目加进文件里的 "env"。已经有同名条目的，只改它的值；其他设置都不要动，保持文件是合法的 JSON。
@@ -313,6 +315,7 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 
 - [seedance-2.5-api](https://github.com/sunsiyuan/seedance-2.5-api)：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
 
 ## 链接
 
@@ -325,6 +328,6 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 
 MIT，见 [LICENSE](LICENSE)。
 
-价格截至 2026-11-20。
+价格截至 2026-11-23。
 
-<!-- 由 build.mjs 于 2026-11-20 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing、deepseek-peak-hours 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
+<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing、deepseek-peak-hours 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->

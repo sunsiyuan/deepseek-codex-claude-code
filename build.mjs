@@ -339,6 +339,7 @@ The message ends with \`(request id: …)\`. Send that id to support@haryai.com 
 
 - [seedance-2.5-api](${SIBLING}): Seedance 2.5 video through the same HaryAI key and balance.
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill): make Seedance 2.5 videos from Claude Code or Codex.
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api): Nano Banana 2.1 and 2 through the OpenAI images API or Gemini's own format.
 
 ## Links
 
@@ -557,6 +558,7 @@ ${errTable}
 
 - [seedance-2.5-api](${SIBLING})：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
 - [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
+- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
 
 ## 链接
 

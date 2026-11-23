@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-在 [HaryAI](https://haryai.com/zh/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code) 用 DeepSeek V4.1 Flash 和 DeepSeek V4 Pro，价格是 DeepSeek 官方价 45 折，高峰时段也一样。一个 HaryAI 的 key 可以用在 Codex、Claude Code、Claude Desktop，以及任何能填 API key 和接口地址的工具里。不用注册 DeepSeek 账号。
+在 [HaryAI](https://haryai.com/zh/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code) 用 DeepSeek V4.1 Flash 和 DeepSeek V4 Pro，价格是 DeepSeek 官方价 45 折。一个 HaryAI 的 key 可以用在 Codex、Claude Code、Claude Desktop，以及任何能填 API key 和接口地址的工具里。不用注册 DeepSeek 账号。
 
 这个仓库放的是每个工具可以直接粘贴的配置、和 DeepSeek 官方价的对比，还有常见问题的回答。完整接口文档见 [docs/api.md](https://haryai.com/docs/api.md)。
 
@@ -180,7 +180,7 @@ curl https://api.haryai.com/v1/chat/completions \
 
 ### 按量付费
 
-单位是美元，每百万 token。在 HaryAI，输入和输出任何时段都是 DeepSeek 官方高峰价的 45%，比 DeepSeek 自己的低峰价（高峰价的 50%）还低。
+单位是美元，每百万 token。在 HaryAI，输入和输出是 DeepSeek 官方价 45 折。
 
 | 模型 |   | 输入（缓存命中） | 输入（缓存未命中） | 输出 |
 |---|---|---|---|---|
@@ -205,20 +205,7 @@ curl https://api.haryai.com/v1/chat/completions \
 
 每期 30 天，关掉续费之前每月自动续费，没用完的用量到期作废。随时可以取消，当前 30 天的周期结束前还能继续用。有 Coding Plan 时先扣 Coding Plan，用完再扣余额。
 
-### DeepSeek 高峰时段
-
-周一到周五，DeepSeek 在北京时间 09:00–12:00、14:00–18:00 按双倍收费。周末和中国法定节假日全天低峰。在 HaryAI 任何时段都是同一个价。
-
-| 时区 | 高峰时段（周一到周五） |
-|---|---|
-| 北京时间（UTC+8） | 09:00–12:00, 14:00–18:00 |
-| UTC | 01:00–04:00, 06:00–10:00 |
-| 日本时间（UTC+9） | 10:00–13:00, 15:00–19:00 |
-| 韩国时间（UTC+9） | 10:00–13:00, 15:00–19:00 |
-
-按美国太平洋时间，高峰从前一天晚上开始：冬令时（PST）是 17:00 到 20:00、22:00 到次日 2:00，夏令时（PDT）是 18:00 到 21:00、23:00 到次日 3:00。
-
-完整价格表见 [DeepSeek API 价格](https://haryai.com/zh/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)、[DeepSeek Coding Plan](https://haryai.com/zh/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)、[DeepSeek 高峰时段](https://haryai.com/zh/deepseek-peak-hours?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)。
+完整价格表见 [DeepSeek API 价格](https://haryai.com/zh/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)、[DeepSeek Coding Plan](https://haryai.com/zh/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)。
 
 ## 常见问题
 
@@ -264,15 +251,11 @@ DeepSeek V4.1 Flash 支持图片输入，DeepSeek V4 Pro 不支持。
 
 ### DeepSeek V4 每百万 token 多少钱？
 
-在 HaryAI 任何时段都是：DeepSeek V4.1 Flash 输入 $0.135，输出 $0.54，输入缓存命中 $0.003；DeepSeek V4 Pro 输入 $0.594，输出 $1.782，输入缓存命中 $0.022。DeepSeek 官方高峰价是 V4.1 Flash 输入 $0.3、输出 $1.2，V4 Pro 输入 $1.32、输出 $3.96。也就是官方价 45 折，高峰时段也一样。
+在 HaryAI：DeepSeek V4.1 Flash 输入 $0.135，输出 $0.54，输入缓存命中 $0.003；DeepSeek V4 Pro 输入 $0.594，输出 $1.782，输入缓存命中 $0.022。DeepSeek 官方价是 V4.1 Flash 输入 $0.3、输出 $1.2，V4 Pro 输入 $1.32、输出 $3.96。也就是官方价 45 折。
 
-### DeepSeek 的高峰时段是什么时候？
+### 大额充值有更多折扣吗？
 
-周一到周五，北京时间 09:00–12:00、14:00–18:00（UTC 01:00–04:00、06:00–10:00）。周末和中国法定节假日全天低峰。所有模型、所有类型的 token，低峰价都是高峰价的一半。
-
-### 高峰时段在 HaryAI 会更贵吗？
-
-不会。输入和输出任何时段都是 DeepSeek 官方高峰价的 45%，比 DeepSeek 自己的低峰价还低。
+有。写信到 support@haryai.com，可以直充，折扣更多。
 
 ### 选月卡还是按量付费？
 
@@ -320,7 +303,7 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 ## 链接
 
 - [在 Codex 里用 DeepSeek](https://haryai.com/zh/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[在 Claude Code 里用 DeepSeek](https://haryai.com/zh/deepseek-claude-code?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[在 Claude Desktop 里用 DeepSeek](https://haryai.com/zh/deepseek-claude?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[配置指南](https://haryai.com/zh/help/setup?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
-- [DeepSeek API 价格](https://haryai.com/zh/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[DeepSeek Coding Plan](https://haryai.com/zh/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[DeepSeek 高峰时段](https://haryai.com/zh/deepseek-peak-hours?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[V4 Pro 和 V4.1 Flash 对比](https://haryai.com/zh/deepseek-v4-pro-vs-flash?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
+- [DeepSeek API 价格](https://haryai.com/zh/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[DeepSeek Coding Plan](https://haryai.com/zh/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[V4 Pro 和 V4.1 Flash 对比](https://haryai.com/zh/deepseek-v4-pro-vs-flash?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
 - [在你的应用里调用 DeepSeek API](https://haryai.com/zh/deepseek-api?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)，[注册](https://haryai.com/zh/signup?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
 - [对话接口文档](https://haryai.com/docs/api.md)，[llms.txt](https://haryai.com/llms.txt)
 
@@ -330,4 +313,4 @@ MIT，见 [LICENSE](LICENSE)。
 
 价格截至 2026-11-23。
 
-<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing、deepseek-peak-hours 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
+<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->

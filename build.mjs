@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Builds README.md and README.zh-CN.md. The discount, every price, the plans,
-// the signup gift, the peak hours, the model table, the configs, the agent
+// the signup gift, large purchases, the model table, the configs, the agent
 // prompts and the error table are read from the public pages below at build
 // time, so nothing is typed twice. Run: node build.mjs   (Node 18 or later,
 // free GETs only, no API key, no model call)
@@ -46,8 +46,7 @@ const pres = (html) => [...html.matchAll(/<pre[^>]*><code[^>]*>([\s\S]*?)<\/code
 const llms = await get(LLMS);
 const prices = must(llms.match(/PRICES-BEGIN[^\n]*\n([\s\S]*?)<!-- PRICES-END/), "price markers")[1];
 const payg = flat(must(prices.match(/\*\*Pay as you go:\*\*([\s\S]*?)\*\*DeepSeek Coding Plan/), "pay as you go")[1]);
-const share = Number(must(payg.match(/cost (\d+)% of DeepSeek's official peak price/), "share of peak")[1]); // 45
-const offPeakShare = Number(must(payg.match(/\((\d+)% of peak\)/), "off-peak share")[1]); // 50
+const share = Number(must(payg.match(/cost (\d+)% of DeepSeek's official price/), "share of the official price")[1]); // 45
 const topups = must(payg.match(/top up ((?:\$\d+(?: \/ )?)+) of balance/), "top-ups")[1].trim(); // "$10 / $25 / ..."
 const months = Number(must(payg.match(/used for (\d+) months after purchase/), "balance validity")[1]);
 const perTok = [...prices.matchAll(/^- (DeepSeek [^(]+?) \(([\w-]+)\): input (\$[\d.]+), output (\$[\d.]+), input cache hit (\$[\d.]+)$/gm)].map(
@@ -62,7 +61,7 @@ const plans = [...prices.matchAll(/^- (\w+): \$(\d+) a month, covers \$(\d+) of 
 must(plans.length, "plan tiers");
 const planDays = Number(must(prices.match(/A plan lasts (\d+) days/), "plan length")[1]);
 const gift = Number(must(llms.match(/gets[\s>]+\$([\d.]+)[\s>]+of balance/), "signup gift")[1]);
-const peakUtc = must(flat(llms).match(/\((\d\d:\d\d–\d\d:\d\d) and (\d\d:\d\d–\d\d:\d\d) UTC\)/), "peak windows").slice(1); // ["01:00–04:00", "06:00–10:00"]
+const [, largeEmail] = must(flat(llms.replace(/^> ?/gm, "")).match(/Large purchases: write to (\S+@\S+) for a direct top-up at a bigger discount\./), "large purchases"); // support@haryai.com
 const tools = flat(must(llms.match(/## Connecting a tool([\s\S]*?)## Pages/), "tool lines")[1]);
 const [, codexBase, wireApi] = must(tools.match(/Codex \(OpenAI Responses API\): base URL `([^`]+)`, wire API `(\w+)`/), "Codex base URL");
 const claudeBase = must(tools.match(/Claude Code \(Anthropic API\): base URL `([^`]+)`/), "Claude Code base URL")[1];
@@ -94,7 +93,6 @@ for (const loc of ["en", "zh"]) {
   const cc = tables(await p("deepseek-claude-code"));
   const vs = tables(await p("deepseek-v4-pro-vs-flash"));
   const pricing = tables(await p("deepseek-api-pricing"));
-  const peakHtml = await p("deepseek-peak-hours");
   if (codex.length !== 2) throw new Error(`${loc}/deepseek-codex: expected 2 code blocks, got ${codex.length}`);
   if (setup.length !== 4) throw new Error(`${loc}/help/setup: expected 4 code blocks, got ${setup.length}`);
   pages[loc] = {
@@ -105,8 +103,6 @@ for (const loc of ["en", "zh"]) {
     settings: must(cc.find((t) => t[0][0] === "ANTHROPIC_BASE_URL"), `${loc} settings table`),
     models: must(vs.find((t) => t[1][1] === flash.id), `${loc} model table`),
     prices: must(pricing[0], `${loc} price table`),
-    peak: must(tables(peakHtml)[0], `${loc} peak table`),
-    pacific: noTags(must(peakHtml.match(/(?:In US Pacific time|按美国太平洋时间)[^<]*/), `${loc} Pacific time`)[0]),
   };
 }
 
@@ -123,7 +119,6 @@ for (const loc of ["en", "zh"]) {
     if (ours.slice(2).join() !== [m.hit, m.input, m.output].join()) throw new Error(`${loc} price table and llms.txt disagree for ${m.id}: ${ours}`);
   }
 }
-if (pages.en.peak.find((r) => r[0] === "UTC")?.[1] !== peakUtc.join(", ")) throw new Error("peak table and llms.txt disagree");
 const officialPeak = (m, col) => {
   const t = en.prices;
   return t.slice(t.findIndex((r) => r[0] === m.name)).find((r) => /peak hours/.test(r[1]))[col];
@@ -138,7 +133,6 @@ const mdTable = (head, rows) => [`| ${head.join(" | ")} |`, `|${head.map(() => "
 const modelTable = (t) => mdTable(t[0].map((c) => c || " "), t.slice(1).map((r, i) => (i < 2 ? [r[0], ...r.slice(1).map((c) => `\`${c}\``)] : r)));
 const priceTable = (t) => mdTable(t[0].map((c) => c || " "), t.slice(1));
 const settingsTable = (t, head) => mdTable(head, t.map(([k, v, d]) => [`\`${k}\``, `\`${v}\``, d]));
-const peakTable = (t) => mdTable(t[0], t.slice(1));
 const planTable = (head, row) => mdTable(head, plans.map(row));
 const today = new Date().toLocaleDateString("sv"); // YYYY-MM-DD, local
 const lead = plans[0];
@@ -148,7 +142,7 @@ const md = `# DeepSeek V4 in Codex and Claude Code through HaryAI
 
 [中文](README.zh-CN.md)
 
-Use DeepSeek V4.1 Flash and DeepSeek V4 Pro through [HaryAI](${page("/en/deepseek-codex")}) at ${off}% off DeepSeek's official price, peak hours included. One HaryAI key works in Codex, Claude Code, Claude Desktop and any tool that takes an API key and base URL. You don't need a DeepSeek account.
+Use DeepSeek V4.1 Flash and DeepSeek V4 Pro through [HaryAI](${page("/en/deepseek-codex")}) at ${off}% off DeepSeek's official price. One HaryAI key works in Codex, Claude Code, Claude Desktop and any tool that takes an API key and base URL. You don't need a DeepSeek account.
 
 This repo has the config to paste for each tool, the prices next to DeepSeek's own, and answers to common questions. The full API reference is [docs/api.md](${API_MD}).
 
@@ -227,7 +221,7 @@ Python and Node examples with the OpenAI and Anthropic SDKs: [DeepSeek API](${pa
 
 ### Pay as you go
 
-US dollars per 1M tokens. On HaryAI input and output cost ${share}% of DeepSeek's official peak price at every hour. That is below DeepSeek's own off-peak price, which is ${offPeakShare}% of peak.
+US dollars per 1M tokens. On HaryAI input and output cost ${share}% of DeepSeek's official price (${off}% off).
 
 ${priceTable(en.prices)}
 
@@ -241,15 +235,7 @@ ${planTable(["Plan", "Price", "Usage included (at DeepSeek's official prices)", 
 
 A plan lasts ${planDays} days and renews until you turn renewal off; unused usage expires at the end. You can cancel anytime and keep using it until the current ${planDays}-day period ends. With a plan, the plan is used first, then your balance.
 
-### DeepSeek peak hours
-
-From Monday to Friday, DeepSeek charges double in two windows: ${peakUtc[0]} and ${peakUtc[1]} UTC. Weekends and Chinese public holidays are off-peak all day. On HaryAI the price is the same at every hour.
-
-${peakTable(en.peak)}
-
-${en.pacific}
-
-Full tables: [DeepSeek API pricing](${page("/en/deepseek-api-pricing")}), [DeepSeek Coding Plan](${page("/en/deepseek-coding-plan")}), [DeepSeek peak hours](${page("/en/deepseek-peak-hours")}).
+Full tables: [DeepSeek API pricing](${page("/en/deepseek-api-pricing")}), [DeepSeek Coding Plan](${page("/en/deepseek-coding-plan")}).
 
 ## Questions
 
@@ -295,15 +281,11 @@ It was retired. Its old names still work and are served by V4.1 Flash at the Fla
 
 ### How much does DeepSeek V4 cost per 1M tokens?
 
-On HaryAI, at any hour: ${perTok.map((m) => `${m.name} input ${m.input}, output ${m.output}, input cache hit ${m.hit}`).join("; ")}. DeepSeek's official peak price is input ${officialPeak(flash, 3)} and output ${officialPeak(flash, 4)} for V4.1 Flash, input ${officialPeak(pro, 3)} and output ${officialPeak(pro, 4)} for V4 Pro. That is ${off}% off, peak hours included.
+On HaryAI: ${perTok.map((m) => `${m.name} input ${m.input}, output ${m.output}, input cache hit ${m.hit}`).join("; ")}. DeepSeek's official price is input ${officialPeak(flash, 3)} and output ${officialPeak(flash, 4)} for V4.1 Flash, input ${officialPeak(pro, 3)} and output ${officialPeak(pro, 4)} for V4 Pro. That is ${off}% off.
 
-### When are DeepSeek's peak hours?
+### Is there a discount for large purchases?
 
-${peakUtc[0]} and ${peakUtc[1]} UTC, Monday to Friday. That is ${pages.en.peak.find((r) => /Beijing/.test(r[0]))[1]} in Beijing and ${pages.en.peak.find((r) => /JST/.test(r[0]))[1]} in Japan and Korea. Weekends and Chinese public holidays are off-peak all day. Off-peak prices are half of peak, for every model and every kind of token.
-
-### Is HaryAI more expensive during peak hours?
-
-No. Input and output cost ${share}% of DeepSeek's official peak price at every hour, which is below DeepSeek's own off-peak price.
+Yes. Write to ${largeEmail} for a direct top-up at a bigger discount.
 
 ### Coding Plan or pay as you go?
 
@@ -344,7 +326,7 @@ The message ends with \`(request id: …)\`. Send that id to support@haryai.com 
 ## Links
 
 - [DeepSeek in Codex](${page("/en/deepseek-codex")}), [DeepSeek in Claude Code](${page("/en/deepseek-claude-code")}), [DeepSeek in Claude Desktop](${page("/en/deepseek-claude")}), [Setup guide](${page("/en/help/setup")})
-- [DeepSeek API pricing](${page("/en/deepseek-api-pricing")}), [DeepSeek Coding Plan](${page("/en/deepseek-coding-plan")}), [DeepSeek peak hours](${page("/en/deepseek-peak-hours")}), [V4 Pro vs V4.1 Flash](${page("/en/deepseek-v4-pro-vs-flash")})
+- [DeepSeek API pricing](${page("/en/deepseek-api-pricing")}), [DeepSeek Coding Plan](${page("/en/deepseek-coding-plan")}), [V4 Pro vs V4.1 Flash](${page("/en/deepseek-v4-pro-vs-flash")})
 - [DeepSeek API in your app](${page("/en/deepseek-api")}), [Sign up](${page("/en/signup")})
 - [Chat API reference](${API_MD}), [llms.txt](${LLMS})
 
@@ -354,17 +336,16 @@ MIT. See [LICENSE](LICENSE).
 
 Prices as of ${today}.
 
-<!-- Generated by build.mjs on ${today} from ${LLMS} (DeepSeek part of the price section, intro, tool lines), ${API_MD}, and the configs, prompts and tables on ${SITE}/en/ deepseek-codex, help/setup, deepseek-claude-code, deepseek-v4-pro-vs-flash, deepseek-api-pricing and deepseek-peak-hours. Edit build.mjs, not this file. -->
+<!-- Generated by build.mjs on ${today} from ${LLMS} (DeepSeek part of the price section, intro, tool lines), ${API_MD}, and the configs, prompts and tables on ${SITE}/en/ deepseek-codex, help/setup, deepseek-claude-code, deepseek-v4-pro-vs-flash, and deepseek-api-pricing. Edit build.mjs, not this file. -->
 `;
 
 // ================================================================ 中文
 const zh = pages.zh;
-const zhPeak = zh.peak.find((r) => /北京/.test(r[0]))[1].replace(", ", "、");
 const zhMd = `# 在 Codex 和 Claude Code 里用 DeepSeek V4（通过 HaryAI）
 
 [English](README.md)
 
-在 [HaryAI](${page("/zh/deepseek-codex")}) 用 DeepSeek V4.1 Flash 和 DeepSeek V4 Pro，价格是 DeepSeek 官方价 ${zhe(share)}，高峰时段也一样。一个 HaryAI 的 key 可以用在 Codex、Claude Code、Claude Desktop，以及任何能填 API key 和接口地址的工具里。不用注册 DeepSeek 账号。
+在 [HaryAI](${page("/zh/deepseek-codex")}) 用 DeepSeek V4.1 Flash 和 DeepSeek V4 Pro，价格是 DeepSeek 官方价 ${zhe(share)}。一个 HaryAI 的 key 可以用在 Codex、Claude Code、Claude Desktop，以及任何能填 API key 和接口地址的工具里。不用注册 DeepSeek 账号。
 
 这个仓库放的是每个工具可以直接粘贴的配置、和 DeepSeek 官方价的对比，还有常见问题的回答。完整接口文档见 [docs/api.md](${API_MD})。
 
@@ -446,7 +427,7 @@ ${fence("sh", curl)}
 
 ### 按量付费
 
-单位是美元，每百万 token。在 HaryAI，输入和输出任何时段都是 DeepSeek 官方高峰价的 ${share}%，比 DeepSeek 自己的低峰价（高峰价的 ${offPeakShare}%）还低。
+单位是美元，每百万 token。在 HaryAI，输入和输出是 DeepSeek 官方价 ${zhe(share)}。
 
 ${priceTable(zh.prices)}
 
@@ -460,15 +441,7 @@ ${planTable(["套餐", "价格", "包含用量（按 DeepSeek 官方价算）", 
 
 每期 ${planDays} 天，关掉续费之前每月自动续费，没用完的用量到期作废。随时可以取消，当前 ${planDays} 天的周期结束前还能继续用。有 Coding Plan 时先扣 Coding Plan，用完再扣余额。
 
-### DeepSeek 高峰时段
-
-周一到周五，DeepSeek 在北京时间 ${zhPeak} 按双倍收费。周末和中国法定节假日全天低峰。在 HaryAI 任何时段都是同一个价。
-
-${peakTable(zh.peak)}
-
-${zh.pacific}
-
-完整价格表见 [DeepSeek API 价格](${page("/zh/deepseek-api-pricing")})、[DeepSeek Coding Plan](${page("/zh/deepseek-coding-plan")})、[DeepSeek 高峰时段](${page("/zh/deepseek-peak-hours")})。
+完整价格表见 [DeepSeek API 价格](${page("/zh/deepseek-api-pricing")})、[DeepSeek Coding Plan](${page("/zh/deepseek-coding-plan")})。
 
 ## 常见问题
 
@@ -514,15 +487,11 @@ DeepSeek V4.1 Flash 支持图片输入，DeepSeek V4 Pro 不支持。
 
 ### DeepSeek V4 每百万 token 多少钱？
 
-在 HaryAI 任何时段都是：${perTok.map((m) => `${m.name} 输入 ${m.input}，输出 ${m.output}，输入缓存命中 ${m.hit}`).join("；")}。DeepSeek 官方高峰价是 V4.1 Flash 输入 ${officialPeak(flash, 3)}、输出 ${officialPeak(flash, 4)}，V4 Pro 输入 ${officialPeak(pro, 3)}、输出 ${officialPeak(pro, 4)}。也就是官方价 ${zhe(share)}，高峰时段也一样。
+在 HaryAI：${perTok.map((m) => `${m.name} 输入 ${m.input}，输出 ${m.output}，输入缓存命中 ${m.hit}`).join("；")}。DeepSeek 官方价是 V4.1 Flash 输入 ${officialPeak(flash, 3)}、输出 ${officialPeak(flash, 4)}，V4 Pro 输入 ${officialPeak(pro, 3)}、输出 ${officialPeak(pro, 4)}。也就是官方价 ${zhe(share)}。
 
-### DeepSeek 的高峰时段是什么时候？
+### 大额充值有更多折扣吗？
 
-周一到周五，北京时间 ${zhPeak}（UTC ${peakUtc.join("、")}）。周末和中国法定节假日全天低峰。所有模型、所有类型的 token，低峰价都是高峰价的一半。
-
-### 高峰时段在 HaryAI 会更贵吗？
-
-不会。输入和输出任何时段都是 DeepSeek 官方高峰价的 ${share}%，比 DeepSeek 自己的低峰价还低。
+有。写信到 ${largeEmail}，可以直充，折扣更多。
 
 ### 选月卡还是按量付费？
 
@@ -563,7 +532,7 @@ ${errTable}
 ## 链接
 
 - [在 Codex 里用 DeepSeek](${page("/zh/deepseek-codex")})，[在 Claude Code 里用 DeepSeek](${page("/zh/deepseek-claude-code")})，[在 Claude Desktop 里用 DeepSeek](${page("/zh/deepseek-claude")})，[配置指南](${page("/zh/help/setup")})
-- [DeepSeek API 价格](${page("/zh/deepseek-api-pricing")})，[DeepSeek Coding Plan](${page("/zh/deepseek-coding-plan")})，[DeepSeek 高峰时段](${page("/zh/deepseek-peak-hours")})，[V4 Pro 和 V4.1 Flash 对比](${page("/zh/deepseek-v4-pro-vs-flash")})
+- [DeepSeek API 价格](${page("/zh/deepseek-api-pricing")})，[DeepSeek Coding Plan](${page("/zh/deepseek-coding-plan")})，[V4 Pro 和 V4.1 Flash 对比](${page("/zh/deepseek-v4-pro-vs-flash")})
 - [在你的应用里调用 DeepSeek API](${page("/zh/deepseek-api")})，[注册](${page("/zh/signup")})
 - [对话接口文档](${API_MD})，[llms.txt](${LLMS})
 
@@ -573,7 +542,7 @@ MIT，见 [LICENSE](LICENSE)。
 
 价格截至 ${today}。
 
-<!-- 由 build.mjs 于 ${today} 生成，数据来自 ${LLMS}（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、${API_MD}，以及 ${SITE}/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing、deepseek-peak-hours 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
+<!-- 由 build.mjs 于 ${today} 生成，数据来自 ${LLMS}（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、${API_MD}，以及 ${SITE}/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
 `;
 
 // The prose restates a few facts from the pages; fail if the source changed under it.
@@ -581,12 +550,11 @@ const modelRow = (label) => en.models.find((r) => r[0] === label)?.slice(1).join
 if (modelRow("Context") !== "1M,1M" || modelRow("Max output") !== "384K,384K") throw new Error(`context or max output changed: ${modelRow("Context")} / ${modelRow("Max output")}`);
 if (modelRow("Image input") !== "Yes,No") throw new Error(`image input changed: ${modelRow("Image input")}`);
 if (!/^`deepseek-v4-flash` is retired\. The name still works and is served by DeepSeek V4\.1 Flash\.$/.test(retired)) throw new Error(`retired note changed: ${retired}`);
-if (offPeakShare !== 50) throw new Error(`off-peak share changed (prose says "half of peak"): ${offPeakShare}`);
 if (!/^\| 401 \|[\s\S]*^\| 429 \|/m.test(errTable)) throw new Error("error table changed, check the zh summary");
 
 await writeFile("README.md", md);
 await writeFile("README.zh-CN.md", zhMd);
 console.log(
-  `README.md, README.zh-CN.md: ${share}% of official peak (${off}% off, ${zhe(share)}), gift ${giftUsd}, top-ups ${topups}, ${months} months; ` +
+  `README.md, README.zh-CN.md: ${share}% of official (${off}% off, ${zhe(share)}), gift ${giftUsd}, top-ups ${topups}, ${months} months; ` +
     `${perTok.map((m) => `${m.id} ${m.input}/${m.output}/${m.hit}`).join("; ")}; plans ${plans.map((p) => `${p.name} $${p.price}→$${p.covers}`).join(", ")}`,
 );

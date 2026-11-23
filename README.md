@@ -2,7 +2,7 @@
 
 [中文](README.zh-CN.md)
 
-Use DeepSeek V4.1 Flash and DeepSeek V4 Pro through [HaryAI](https://haryai.com/en/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code) at 55% off DeepSeek's official price, peak hours included. One HaryAI key works in Codex, Claude Code, Claude Desktop and any tool that takes an API key and base URL. You don't need a DeepSeek account.
+Use DeepSeek V4.1 Flash and DeepSeek V4 Pro through [HaryAI](https://haryai.com/en/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code) at 55% off DeepSeek's official price. One HaryAI key works in Codex, Claude Code, Claude Desktop and any tool that takes an API key and base URL. You don't need a DeepSeek account.
 
 This repo has the config to paste for each tool, the prices next to DeepSeek's own, and answers to common questions. The full API reference is [docs/api.md](https://haryai.com/docs/api.md).
 
@@ -180,7 +180,7 @@ Python and Node examples with the OpenAI and Anthropic SDKs: [DeepSeek API](http
 
 ### Pay as you go
 
-US dollars per 1M tokens. On HaryAI input and output cost 45% of DeepSeek's official peak price at every hour. That is below DeepSeek's own off-peak price, which is 50% of peak.
+US dollars per 1M tokens. On HaryAI input and output cost 45% of DeepSeek's official price (55% off).
 
 | Model |   | Input, cache hit | Input, cache miss | Output |
 |---|---|---|---|---|
@@ -205,20 +205,7 @@ A monthly plan. Usage is counted at DeepSeek's official prices.
 
 A plan lasts 30 days and renews until you turn renewal off; unused usage expires at the end. You can cancel anytime and keep using it until the current 30-day period ends. With a plan, the plan is used first, then your balance.
 
-### DeepSeek peak hours
-
-From Monday to Friday, DeepSeek charges double in two windows: 01:00–04:00 and 06:00–10:00 UTC. Weekends and Chinese public holidays are off-peak all day. On HaryAI the price is the same at every hour.
-
-| Time zone | Peak hours, Monday to Friday |
-|---|---|
-| UTC | 01:00–04:00, 06:00–10:00 |
-| Beijing (UTC+8) | 09:00–12:00, 14:00–18:00 |
-| JST (UTC+9) | 10:00–13:00, 15:00–19:00 |
-| KST (UTC+9) | 10:00–13:00, 15:00–19:00 |
-
-In US Pacific time the windows start the evening before: 5 pm to 8 pm and 10 pm to 2 am in winter (PST), 6 pm to 9 pm and 11 pm to 3 am in summer (PDT).
-
-Full tables: [DeepSeek API pricing](https://haryai.com/en/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek Coding Plan](https://haryai.com/en/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek peak hours](https://haryai.com/en/deepseek-peak-hours?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code).
+Full tables: [DeepSeek API pricing](https://haryai.com/en/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek Coding Plan](https://haryai.com/en/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code).
 
 ## Questions
 
@@ -264,15 +251,11 @@ It was retired. Its old names still work and are served by V4.1 Flash at the Fla
 
 ### How much does DeepSeek V4 cost per 1M tokens?
 
-On HaryAI, at any hour: DeepSeek V4.1 Flash input $0.135, output $0.54, input cache hit $0.003; DeepSeek V4 Pro input $0.594, output $1.782, input cache hit $0.022. DeepSeek's official peak price is input $0.3 and output $1.2 for V4.1 Flash, input $1.32 and output $3.96 for V4 Pro. That is 55% off, peak hours included.
+On HaryAI: DeepSeek V4.1 Flash input $0.135, output $0.54, input cache hit $0.003; DeepSeek V4 Pro input $0.594, output $1.782, input cache hit $0.022. DeepSeek's official price is input $0.3 and output $1.2 for V4.1 Flash, input $1.32 and output $3.96 for V4 Pro. That is 55% off.
 
-### When are DeepSeek's peak hours?
+### Is there a discount for large purchases?
 
-01:00–04:00 and 06:00–10:00 UTC, Monday to Friday. That is 09:00–12:00, 14:00–18:00 in Beijing and 10:00–13:00, 15:00–19:00 in Japan and Korea. Weekends and Chinese public holidays are off-peak all day. Off-peak prices are half of peak, for every model and every kind of token.
-
-### Is HaryAI more expensive during peak hours?
-
-No. Input and output cost 45% of DeepSeek's official peak price at every hour, which is below DeepSeek's own off-peak price.
+Yes. Write to support@haryai.com for a direct top-up at a bigger discount.
 
 ### Coding Plan or pay as you go?
 
@@ -320,7 +303,7 @@ The message ends with `(request id: …)`. Send that id to support@haryai.com wh
 ## Links
 
 - [DeepSeek in Codex](https://haryai.com/en/deepseek-codex?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek in Claude Code](https://haryai.com/en/deepseek-claude-code?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek in Claude Desktop](https://haryai.com/en/deepseek-claude?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [Setup guide](https://haryai.com/en/help/setup?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
-- [DeepSeek API pricing](https://haryai.com/en/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek Coding Plan](https://haryai.com/en/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek peak hours](https://haryai.com/en/deepseek-peak-hours?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [V4 Pro vs V4.1 Flash](https://haryai.com/en/deepseek-v4-pro-vs-flash?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
+- [DeepSeek API pricing](https://haryai.com/en/deepseek-api-pricing?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [DeepSeek Coding Plan](https://haryai.com/en/deepseek-coding-plan?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [V4 Pro vs V4.1 Flash](https://haryai.com/en/deepseek-v4-pro-vs-flash?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
 - [DeepSeek API in your app](https://haryai.com/en/deepseek-api?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code), [Sign up](https://haryai.com/en/signup?utm_source=github&utm_medium=readme&utm_campaign=deepseek-codex-claude-code)
 - [Chat API reference](https://haryai.com/docs/api.md), [llms.txt](https://haryai.com/llms.txt)
 
@@ -330,4 +313,4 @@ MIT. See [LICENSE](LICENSE).
 
 Prices as of 2026-11-23.
 
-<!-- Generated by build.mjs on 2026-11-23 from https://haryai.com/llms.txt (DeepSeek part of the price section, intro, tool lines), https://haryai.com/docs/api.md, and the configs, prompts and tables on https://haryai.com/en/ deepseek-codex, help/setup, deepseek-claude-code, deepseek-v4-pro-vs-flash, deepseek-api-pricing and deepseek-peak-hours. Edit build.mjs, not this file. -->
+<!-- Generated by build.mjs on 2026-11-23 from https://haryai.com/llms.txt (DeepSeek part of the price section, intro, tool lines), https://haryai.com/docs/api.md, and the configs, prompts and tables on https://haryai.com/en/ deepseek-codex, help/setup, deepseek-claude-code, deepseek-v4-pro-vs-flash, and deepseek-api-pricing. Edit build.mjs, not this file. -->

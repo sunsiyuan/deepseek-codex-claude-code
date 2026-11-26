@@ -11,7 +11,7 @@ const SITE = "https://haryai.com";
 const LLMS = `${SITE}/llms.txt`;
 const API_MD = `${SITE}/docs/api.md`;
 const CAMPAIGN = "deepseek-codex-claude-code";
-const SIBLING = "https://github.com/sunsiyuan/seedance-2.5-api";
+const SIBLING = "https://github.com/haryai-com/seedance-2.5-api";
 // Site pages carry UTM; the docs (.md / .txt) don't.
 const page = (path) => `${SITE}${path}?utm_source=github&utm_medium=readme&utm_campaign=${CAMPAIGN}`;
 
@@ -320,8 +320,8 @@ The message ends with \`(request id: …)\`. Send that id to support@haryai.com 
 ## Related
 
 - [seedance-2.5-api](${SIBLING}): Seedance 2.5 video through the same HaryAI key and balance.
-- [seedance-skill](https://github.com/sunsiyuan/seedance-skill): make Seedance 2.5 videos from Claude Code or Codex.
-- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api): Nano Banana 2.1 and 2 through the OpenAI images API or Gemini's own format.
+- [seedance-skill](https://github.com/haryai-com/seedance-skill): make Seedance 2.5 videos from Claude Code or Codex.
+- [nano-banana-api](https://github.com/haryai-com/nano-banana-api): Nano Banana 2.1 and 2 through the OpenAI images API or Gemini's own format.
 
 ## Links
 
@@ -526,8 +526,8 @@ ${errTable}
 ## 相关
 
 - [seedance-2.5-api](${SIBLING})：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
-- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
-- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
+- [seedance-skill](https://github.com/haryai-com/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
+- [nano-banana-api](https://github.com/haryai-com/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
 
 ## 链接
 

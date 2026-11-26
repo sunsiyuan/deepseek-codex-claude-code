@@ -33,6 +33,7 @@ name = "HaryAI"
 base_url = "https://api.haryai.com/v1"
 wire_api = "responses"
 experimental_bearer_token = "<your HaryAI key>"
+model_catalog_url = "https://api.haryai.com/v1/models"
 ```
 
 想用 DeepSeek V4 Pro，就把 model 改成 `deepseek-v4-pro`。Codex 走的是 Responses API（`wire_api = "responses"`），接口地址是 `https://api.haryai.com/v1`。原来用 ChatGPT 账号登录 Codex 的，这样会改用 HaryAI 的 key 登录，之前的 ChatGPT 会话都还在。完全退出 Codex 再重新打开，发一条简短的消息，有回复就说明配好了。
@@ -105,6 +106,7 @@ name = "HaryAI"
 base_url = "https://api.haryai.com/v1"
 wire_api = "responses"
 experimental_bearer_token = "<your HaryAI key>"
+model_catalog_url = "https://api.haryai.com/v1/models"
 ```
 
 3. 最后告诉我：完全退出 Codex 再重新打开，发一条简短的消息，看有没有回复。
@@ -296,9 +298,9 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 
 ## 相关
 
-- [seedance-2.5-api](https://github.com/sunsiyuan/seedance-2.5-api)：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
-- [seedance-skill](https://github.com/sunsiyuan/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
-- [nano-banana-api](https://github.com/sunsiyuan/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
+- [seedance-2.5-api](https://github.com/haryai-com/seedance-2.5-api)：用同一个 HaryAI key 和余额调用 Seedance 2.5 视频模型。
+- [seedance-skill](https://github.com/haryai-com/seedance-skill)：在 Claude Code 或 Codex 里直接用 Seedance 2.5 做视频。
+- [nano-banana-api](https://github.com/haryai-com/nano-banana-api)：用 OpenAI 图片接口或 Gemini 原生格式调 Nano Banana 2.1 和 2。
 
 ## 链接
 
@@ -311,6 +313,6 @@ HaryAI 不限制每分钟请求数。预计流量很大时，请先发邮件到 
 
 MIT，见 [LICENSE](LICENSE)。
 
-价格截至 2026-11-23。
+价格截至 2026-11-27。
 
-<!-- 由 build.mjs 于 2026-11-23 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
+<!-- 由 build.mjs 于 2026-11-27 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->

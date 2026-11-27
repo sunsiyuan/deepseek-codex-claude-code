@@ -193,7 +193,7 @@ curl https://api.haryai.com/v1/chat/completions \
 |  | DeepSeek 低峰时段 | $0.022 | $0.66 | $1.98 |
 |  | HaryAI | $0.022 | $0.594 | $1.782 |
 
-可以充 $10 / $25 / $50 / $100 / $250，余额自购买起 6 个月内有效。新账号验证邮箱后送 $0.50 余额，可以先试用。价格以美元计，结账时 Stripe 会显示你所在地货币的金额。
+可以充 $10 / $25 / $50 / $100 / $250，余额自购买起 6 个月内有效。新账号验证邮箱后送 $0.35 余额，可以先试用。价格以美元计，结账时 Stripe 会显示你所在地货币的金额。
 
 ### DeepSeek Coding Plan 月卡
 
@@ -315,4 +315,4 @@ MIT，见 [LICENSE](LICENSE)。
 
 价格截至 2026-11-27。
 
-<!-- 由 build.mjs 于 2026-11-27 生成，数据来自 https://haryai.com/llms.txt（价格标记之间的 DeepSeek 部分、开头介绍、接入工具一节）、https://haryai.com/docs/api.md，以及 https://haryai.com/zh/ 下 deepseek-codex、help/setup、deepseek-claude-code、deepseek-v4-pro-vs-flash、deepseek-api-pricing 页面上的配置、提示词和表格。请改 build.mjs，不要直接改本文件。 -->
+<!-- 2026-11-27 由 HaryAI 的价格目录、配置页源码和 https://haryai.com/docs/api.md 生成，请勿手改。 -->
